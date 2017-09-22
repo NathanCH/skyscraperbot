@@ -13,9 +13,11 @@ const connector = new builder.ChatConnector({
 
 server.post('/api/messages', connector.listen())
 
-
-const bot = new builder.UniversalBot(connector, session => {
-  session.send('%s ...is there an echo in here?', session.message.text)
+const bot = new builder.UniversalBot(connector, session => { 
+  var username = session.userData['UserName']
+  if (!username) {
+    return session.beginDialog('greet')
+  }
 })
 
 bot.on('conversationUpdate', message => {
@@ -29,8 +31,19 @@ bot.on('conversationUpdate', message => {
   }
 });
 
+bot.dialog('greet', new builder.SimpleDialog((session, results) => {
+  
+    if(results && results.response) {
+      session.userData['UserName'] = results.response
+      session.privateConversationData['isGreeted'] = true
+      return session.endDialog('%s! %s', results.response, 'Hello, I am Skyscraper Bot!')
+    }
+    
+    builder.Prompts.text(session, 'Hello. Before we get started, please tell me your name?')
+}))
+
 const getMembersAddedMsg = membersAdded => {
-  return 'Everbody welcome ' + membersAdded
-    .map(function(u) { return u.name })
-    .join(', ')
+  return membersAdded
+    .map(u => u.name)
+    .join(', ') + ' has joined.'
 }
