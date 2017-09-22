@@ -1,0 +1,14 @@
+{
+  "name": "skyscraperbot",
+  "version": "1.0.0",
+  "description": "a bot for skype",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathan Charrois",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.10.1"
+  }
+}
