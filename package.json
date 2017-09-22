@@ -9,6 +9,7 @@
   "author": "Nathan Charrois",
   "license": "ISC",
   "dependencies": {
-    "botbuilder": "^3.10.1"
+    "botbuilder": "^3.10.1",
+    "restify": "^6.0.1"
   }
 }
